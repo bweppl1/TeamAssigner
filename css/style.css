@@ -2,16 +2,85 @@
 /* CSS
 /*******************************************/
 
-/* Box Model Hack */
-*{
-  box-sizing: border-box;
+
+/* 
+darker  #332D56
+        #4E6688
+        #71C0BB
+lighter #E3EEB2
+rgb(51, 45, 86)
+rgb(78, 102, 136)
+rgb(113, 192, 187)
+rgb(227, 238, 178) */
+
+
+* {
+  font-family: sans-serif;
+  font-size: 15px;
 }
+
+body {
+  background-color: #E3EEB2;
+  margin: 50px;
+  color: #4E6688;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+h1, h2, h3, h4 {
+  color: #332D56;
+  margin: 0;
+  padding: 0;
+}
+
+
+
 
 /******************************************
 /* LAYOUT
 /*******************************************/
 
+header {
+  width: 100%;
+}
 
+section.container {
+  display: flex;
+  flex-direction: column;
+  border: 1px solid #332D56;
+  border-radius: 10px;
+  padding: 20px;
+  margin: 20px;
+  width: 45%;
+}
+
+section {
+  display: flex;
+  width: 50%;
+  justify-content: space-between;
+  padding: 15px 0;
+}
+
+button {
+  border: 1px solid #332D56;
+  border-radius: 10px;
+  padding: 12px 24px;
+  background-color: #4E6688;
+  width: 200px;
+}
+
+button:hover {
+  background-color: #71C0BB;
+}
+
+#rn {
+  display: flex;
+  flex-direction: column;
+}
+
+select {
+  margin: 10px 0;
+}
 
 /******************************************
 /* ADDITIONAL STYLES

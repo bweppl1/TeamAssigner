@@ -1,106 +1,120 @@
+// SCHEDULED STAFF 
+// TO-DO -> Import Staff from CSV or Spreadsheet
+let staffNurses = ["Chelsea", "Christine", "Tracy", "Jessica", "Brenda", "Brent", "Cheryl", "Lindsey", "Amanda"]
+
+// Base staff population
+for(let i = 0; i < 6; i++) {
+  addRN();
+}
+
+
+// Add RN function
+function addRN() {
+  // Creating select element
+  const selectElement = document.createElement("select");
+  selectElement.className = "scheduledStaff";
+
+  // Creating default option
+  const defaultOption = document.createElement("option");
+  defaultOption.value = "";
+  defaultOption.textContent = " --- Choose a Nurse --- ";
+  defaultOption.selected = true;
+
+  selectElement.appendChild(defaultOption);
+
+  // Create staff options
+  staffNurses.forEach(staff => {
+    const option = document.createElement("option")
+    option.value = staff.toLowerCase();
+    option.textContent = staff;
+    selectElement.appendChild(option)
+  })
+
+  // Insert staff option into DOM
+  document.getElementById("rn").appendChild(selectElement);
+}
+
+document.querySelector("#addRN").addEventListener("click", addRN);
+
 let team1 = ["Chelsea", "Christine", "Tracy", "Jessica", "Brenda"];
 let team2 = ["Brenda", "Christine", "Chelsea", "Jessica", "Tracy"];
 let team3 = ["Brenda", "Christine", "Tracy", "Jessica", "Chelsea"];
 let team4 = ["Brenda", "Christine", "Tracy", "Jessica", "Jessica"];
 
-team1Primary = document.querySelector("#t1Primary");
-team1Secondary = document.querySelector("#t1Secondary");
-team2Primary = document.querySelector("#t2Primary");
-team2Secondary = document.querySelector("#t2Secondary");
-team3Primary = document.querySelector("#t3Primary");
-team3Secondary = document.querySelector("#t3Secondary");
-team4Primary = document.querySelector("#t4Primary");
-team4Secondary = document.querySelector("#t4Secondary");
+// for refactoring later
+// let assignments = ["team1", "team2", "team3", "team4", "float"];
 
-let team1Pos;
-let team2Pos;
-let team3Pos;
-let team4Pos;
+let scheduledStaff = (document.querySelectorAll(".nurses"));
+let staffArray = Array.from(scheduledStaff).map(scheduledStaff => scheduledStaff.value);
 
-let assignment;
+// Testing
+console.log(staffArray)
 
-document.querySelector("#assign-staff").addEventListener("click", assignStaff);
+document
+  .querySelector("#assign-staff")
+  .addEventListener("click", updateAssignmentDisplay);
 
-function assignStaff() {
-  const selectedStaff = document.querySelector("#staffSelect").value;
-
-  // team1Primary.textContent = selectedStaff
-
-  team1Pos = findTeam1Pos(selectedStaff);
-  team2Pos = findTeam2Pos(selectedStaff);
-  team3Pos = findTeam3Pos(selectedStaff);
-  team4Pos = findTeam4Pos(selectedStaff);
-
-  assignment = leastRecentAssignment(team1Pos, team2Pos, team3Pos, team4Pos);
-
-  switch (assignment) {
-    case 1:
-      team1Primary.textContent = selectedStaff;
-      break;
-    case 2:
-      team2Primary.textContent = selectedStaff;
-      break;
-    case 3:
-      team4Primary.textContent = selectedStaff;
-      break;
-    default:
-      team4Primary.textContent = selectedStaff;
-      break;
-  }
+function updateAssignmentDisplay() {
+  let team1Nurse = document.querySelector("#t1Nurse");
+  team1Nurse.textContent = assignTeamOne(staffArray);
+  let team2Nurse = document.querySelector("#t2Nurse");
+  team2Nurse.textContent = assignTeamTwo(staffArray);
+  let team3Nurse = document.querySelector("#t3Nurse");
+  team3Nurse.textContent = assignTeamOne(staffArray);
+  let team4Nurse = document.querySelector("#t4Nurse");
+  team4Nurse.textContent = assignTeamOne(staffArray);
 }
 
-function findTeam1Pos(staff) {
-  for (let i = 0; i < team1.length; i++) {
-    if (team1[i] == staff) {
-      return i;
+
+
+// TEAM ASSIGNMENT
+
+// Assigning Team 1 Nurse
+function assignTeamOne(nurses) {
+  let leastRecentNurse = nurses[0];
+
+  for (let i = 1; i < nurses.length; i++) {
+    if (team1.indexOf(nurses[i]) > team1.indexOf(leastRecentNurse)) {
+      leastRecentNurse = nurses[i];
     }
   }
+  let nurseIndex = staffArray.indexOf(leastRecentNurse)
+  return staffArray.splice(nurseIndex, 1)
 }
-function findTeam2Pos(staff) {
-  for (let i = 0; i < team2.length; i++) {
-    if (team2[i] == staff) {
-      return i;
+
+// Assigning Team 2 Nurse
+function assignTeamTwo(nurses) {
+  let leastRecentNurse = nurses[0];
+
+  for (let i = 1; i < nurses.length; i++) {
+    if (team2.indexOf(nurses[i]) > team2.indexOf(leastRecentNurse)) {
+      leastRecentNurse = nurses[i];
     }
   }
+  let nurseIndex = staffArray.indexOf(leastRecentNurse)
+  return staffArray.splice(nurseIndex, 1)
 }
-function findTeam3Pos(staff) {
-  for (let i = 0; i < team3.length; i++) {
-    if (team3[i] == staff) {
-      return i;
+
+function assignTeamThree(nurses) {
+  let leastRecentNurse = nurses[0];
+
+  for (let i = 1; i < nurses.length; i++) {
+    if (team3.indexOf(nurses[i]) > team3.indexOf(leastRecentNurse)) {
+      leastRecentNurse = nurses[i];
     }
   }
+  let nurseIndex = staffArray.indexOf(leastRecentNurse)
+  return staffArray.splice(nurseIndex, 1)
 }
-function findTeam4Pos(staff) {
-  for (let i = 0; i < team4.length; i++) {
-    if (team4[i] == staff) {
-      return i;
+
+function assignTeamFour(nurses) {
+  let leastRecentNurse = nurses[0];
+
+  for (let i = 1; i < nurses.length; i++) {
+    if (team4.indexOf(nurses[i]) > team4.indexOf(leastRecentNurse)) {
+      leastRecentNurse = nurses[i];
     }
   }
-}
-
-function leastRecentAssignment(t1, t2, t3, t4) {
-  let leastRecent = t1;
-
-  if (t2 > leastRecent) {
-    leastRecent = t2;
-  }
-
-  if (t3 > leastRecent) {
-    leastRecent = t3;
-  }
-
-  if (t4 > leastRecent) {
-    leastRecent = t4;
-  }
-
-  switch (leastRecent) {
-    case t1:
-      return 1;
-    case t2:
-      return 2;
-    case t3:
-      return 3;
-    default:
-      return 4;
-  }
+  let nurseIndex = staffArray.indexOf(leastRecentNurse)
+  return staffArray.splice(nurseIndex, 1)
 }

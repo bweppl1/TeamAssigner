@@ -3,7 +3,7 @@
 let staffNurses = ["Chelsea", "Christine", "Tracy", "Jessica", "Brenda", "Brent", "Cheryl", "Lindsey", "Amanda"]
 
 // Base staff population
-for(let i = 0; i < 6; i++) {
+for(let i = 0; i < 5; i++) {
   addRN();
 }
 
@@ -12,7 +12,7 @@ for(let i = 0; i < 6; i++) {
 function addRN() {
   // Creating select element
   const selectElement = document.createElement("select");
-  selectElement.className = "scheduledStaff";
+  selectElement.className = "scheduledRegisteredNurses";
 
   // Creating default option
   const defaultOption = document.createElement("option");
@@ -33,8 +33,33 @@ function addRN() {
   // Insert staff option into DOM
   document.getElementById("rn").appendChild(selectElement);
 }
+function addLPN() {
+  // Creating select element
+  const selectElement = document.createElement("select");
+  selectElement.className = "scheduledLicensedPracticalNurses";
+
+  // Creating default option
+  const defaultOption = document.createElement("option");
+  defaultOption.value = "";
+  defaultOption.textContent = " --- Choose a Nurse --- ";
+  defaultOption.selected = true;
+
+  selectElement.appendChild(defaultOption);
+
+  // Create staff options
+  staffNurses.forEach(staff => {
+    const option = document.createElement("option")
+    option.value = staff.toLowerCase();
+    option.textContent = staff;
+    selectElement.appendChild(option)
+  })
+
+  // Insert staff option into DOM
+  document.getElementById("lpn").appendChild(selectElement);
+}
 
 document.querySelector("#addRN").addEventListener("click", addRN);
+document.querySelector("#addLPN").addEventListener("click", addLPN);
 
 let team1 = ["Chelsea", "Christine", "Tracy", "Jessica", "Brenda"];
 let team2 = ["Brenda", "Christine", "Chelsea", "Jessica", "Tracy"];
@@ -55,13 +80,13 @@ document
   .addEventListener("click", updateAssignmentDisplay);
 
 function updateAssignmentDisplay() {
-  let team1Nurse = document.querySelector("#t1Nurse");
+  let team1Nurse = document.querySelector("#t1n1");
   team1Nurse.textContent = assignTeamOne(staffArray);
-  let team2Nurse = document.querySelector("#t2Nurse");
+  let team2Nurse = document.querySelector("#t2n1");
   team2Nurse.textContent = assignTeamTwo(staffArray);
-  let team3Nurse = document.querySelector("#t3Nurse");
+  let team3Nurse = document.querySelector("#t3n1");
   team3Nurse.textContent = assignTeamOne(staffArray);
-  let team4Nurse = document.querySelector("#t4Nurse");
+  let team4Nurse = document.querySelector("#t4n1");
   team4Nurse.textContent = assignTeamOne(staffArray);
 }
 

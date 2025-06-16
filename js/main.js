@@ -1,4 +1,4 @@
-// SCHEDULED STAFF 
+// SCHEDULED STAFF
 // TO-DO ->\
 // 1. Import Staff and Team queues from CSV or Spreadsheet
 // 2. Append spreadsheet when new staff is added (Create new staff button)
@@ -7,17 +7,17 @@
 // EDGE CASE HANDLING
 // 1. Short Staff
 // 2. Over Staffed
-// 3. Uneven balance of RNs/LPNs 
+// 3. Uneven balance of RNs/LPNs
 
-let staffRN = ["Chelsea", "Christine", "Tracy", "Jessica", "Cheryl", "Amanda"]
-let staffLPN = ["Brent", "Rachelle", "Kayla", "Lindsey", "Kristin", "Jen"]
+let staffRN = ["Chelsea", "Christine", "Tracy", "Jessica", "Cheryl", "Amanda"];
+let staffLPN = ["Brent", "Rachelle", "Kayla", "Lindsey", "Kristin", "Jen"];
 
 // Base amount of staff selectors
-for(let i = 0; i < 5; i++) {
+for (let i = 0; i < 5; i++) {
   addRN();
 }
 
-for(let i = 0; i < 5; i++) {
+for (let i = 0; i < 5; i++) {
   addLPN();
 }
 
@@ -36,12 +36,12 @@ function addRN() {
   selectElement.appendChild(defaultOption);
 
   // Create staff options
-  staffRN.forEach(staff => {
-    const option = document.createElement("option")
-    option.value = staff;  //toLowerCase()
+  staffRN.forEach((staff) => {
+    const option = document.createElement("option");
+    option.value = staff; //toLowerCase()
     option.textContent = staff;
-    selectElement.appendChild(option)
-  })
+    selectElement.appendChild(option);
+  });
 
   // Insert staff option into DOM
   document.getElementById("rn").appendChild(selectElement);
@@ -61,12 +61,12 @@ function addLPN() {
   selectLPN.appendChild(defaultOption);
 
   // Create staff options
-  staffLPN.forEach(staff => {
-    const option = document.createElement("option")
+  staffLPN.forEach((staff) => {
+    const option = document.createElement("option");
     option.value = staff; // toLowerCase() when needed
     option.textContent = staff;
-    selectLPN.appendChild(option)
-  })
+    selectLPN.appendChild(option);
+  });
 
   // Insert staff option into DOM
   document.getElementById("lpn").appendChild(selectLPN);
@@ -75,11 +75,29 @@ function addLPN() {
 document.querySelector("#addRN").addEventListener("click", addRN);
 document.querySelector("#addLPN").addEventListener("click", addLPN);
 
+//Handle differently
+// let chargeNurseList = [];
+
 let team1 = ["Chelsea", "Christine", "Tracy", "Jessica", "Brenda"];
 let team2 = ["Brenda", "Chelsea", "Christine", "Jessica", "Tracy"];
 let team3 = ["Tracy", "Christine", "Jessica", "Brenda", "Chelsea"];
 let team4 = ["Jessica", "Brenda", "Tracy", "Chelsea", "Christine"];
-let float = []
+let float = [];
+
+let teams = [team1, team2, team3, team4, float];
+
+let chargeNurse = document.querySelector("#chargeNurse");
+let t1n1 = document.querySelector("#t1n1");
+let t2n1 = document.querySelector("#t2n1");
+let t3n1 = document.querySelector("#t3n1");
+let t4n1 = document.querySelector("#t4n1");
+let t1n2 = document.querySelector("#t1n2");
+let t2n2 = document.querySelector("#t2n2");
+let t3n2 = document.querySelector("#t3n2");
+let t4n2 = document.querySelector("#t4n2");
+let floatNurses = document.querySelector("#floatNurses");
+
+let assignments = [t1n1, t2n1, t3n1, t4n1, t1n2, t2n2, t3n2, t4n2];
 
 // Assign Staff Button
 document
@@ -88,15 +106,26 @@ document
 
 // Assigns and Displays Nurses After Button Click
 function updateAssignmentDisplay() {
-  let assignments = [team1, team2, team3, team4, float];
   let scheduledRNs = document.querySelectorAll(".scheduledRegisteredNurses");
-  let scheduledRNsArray = Array.from(scheduledRNs).map(scheduledRNs => scheduledRNs.value);
-  let scheduledLPNs = document.querySelectorAll(".scheduledLicensedPracticalNurses");
-  let scheduledLPNsArray = Array.from(scheduledLPNs).map(scheduledLPNs => scheduledLPNs.value);
+  let scheduledRNsArray = Array.from(scheduledRNs).map(
+    (scheduledRNs) => scheduledRNs.value
+  );
+  let scheduledLPNs = document.querySelectorAll(
+    ".scheduledLicensedPracticalNurses"
+  );
+  let scheduledLPNsArray = Array.from(scheduledLPNs).map(
+    (scheduledLPNs) => scheduledLPNs.value
+  );
 
-  while(scheduledRNsArray.length > 0) {
-    
+  // Charge Nurse Function
+  // --- PLACEHOLDER --
+
+  while (scheduledRNsArray.length > 0 && assignments.length > 0) {
+    assignNurse(scheduledRNs);
+
+    // =============+> WORKING HERE ----
   }
+
   let team1Nurse = document.querySelector("#t1n1");
   let team1Nurse1 = assignTeamOne(scheduledRNs, assignments[0]);
   team1Nurse.textContent = team1Nurse1;
@@ -120,14 +149,10 @@ function updateAssignmentDisplay() {
   // console.log(scheduledStaffArray);
 }
 
-
-
-
-
 // TEAM ASSIGNMENT
 
 // Assigning Team 1 Nurse 1
-function assignTeamOne(nurses, team) {
+function assignNurse(nurses, team) {
   let leastRecentNurse = nurses[0];
 
   for (let i = 1; i < nurses.length; i++) {
@@ -135,8 +160,8 @@ function assignTeamOne(nurses, team) {
       leastRecentNurse = nurses[i];
     }
   }
-  console.log(`${leastRecentNurse} has been assigned to ${team}`)
-  return(leastRecentNurse);
+  console.log(`${leastRecentNurse} has been assigned to ${team}`);
+  return leastRecentNurse;
 }
 
 // Assigning Team 2 Nurse 1
@@ -148,8 +173,8 @@ function assignTeamTwo(nurses) {
       leastRecentNurse = nurses[i];
     }
   }
-  console.log(`${leastRecentNurse} has been assigned to Team 2`)
-  return(leastRecentNurse);
+  console.log(`${leastRecentNurse} has been assigned to Team 2`);
+  return leastRecentNurse;
 }
 
 // Assigning Team 3 Nurse 1
@@ -161,8 +186,8 @@ function assignTeamThree(nurses) {
       leastRecentNurse = nurses[i];
     }
   }
-  console.log(`${leastRecentNurse} has been assigned to Team 3`)
-  return(leastRecentNurse);
+  console.log(`${leastRecentNurse} has been assigned to Team 3`);
+  return leastRecentNurse;
 }
 
 // Assigning Team 4 Nurse 1
@@ -174,6 +199,6 @@ function assignTeamFour(nurses) {
       leastRecentNurse = nurses[i];
     }
   }
-  console.log(`${leastRecentNurse} has been assigned to Team 4`)
-  return(leastRecentNurse);
+  console.log(`${leastRecentNurse} has been assigned to Team 4`);
+  return leastRecentNurse;
 }

@@ -54,10 +54,14 @@ section.container {
   width: 45%;
 }
 
+section.container section {
+  justify-content: space-between;
+  padding: 20px 100px;
+  align-items: center;
+}
+
 section {
   display: flex;
-  width: 50%;
-  justify-content: space-between;
   padding: 15px 0;
 }
 
@@ -66,20 +70,24 @@ button {
   border-radius: 10px;
   padding: 12px 24px;
   background-color: #4E6688;
-  width: 200px;
+  width: min-content;
+  text-wrap: nowrap;
 }
 
 button:hover {
   background-color: #71C0BB;
 }
 
-#rn {
+#rn, #lpn {
   display: flex;
   flex-direction: column;
+  width: 50%;
 }
 
 select {
   margin: 10px 0;
+  margin-right: 10px;
+  width: 75%;
 }
 
 /******************************************
